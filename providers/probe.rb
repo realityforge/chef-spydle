@@ -20,7 +20,7 @@ action :create do
   config = {:type => new_resource.type}
   config[:stage] = new_resource.stage if new_resource.stage
   config[:period] = new_resource.period if new_resource.period
-  config.merge!(new_resource.config) if new_resource.config
+  config[:config] = new_resource.config if new_resource.config
   file "#{node[:spydle][:conf_dir]}/#{new_resource.name}.json" do
     mode "0400"
     owner node[:spydle][:user]
