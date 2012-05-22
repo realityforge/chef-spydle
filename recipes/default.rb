@@ -40,16 +40,6 @@ directory node[:spydle][:conf_dir] do
   recursive true
 end
 
-target_package_filename = "#{node[:spydle][:lib_dir]}/#{File.basename(node[:spydle][:package_url])}"
-remote_file target_package_filename do
-  source node[:spydle][:package_url]
-  checksum node[:spydle][:package_checksum]
-  owner node[:spydle][:user]
-  group node[:spydle][:group]
-  mode "0600"
-  not_if { ::File.exists?(target_package_filename) }
-end
-
 template "/etc/init/spydle.conf" do
   source "upstart.conf.erb"
   mode "0644"
@@ -58,5 +48,34 @@ end
 service "spydle" do
   provider Chef::Provider::Service::Upstart
   supports :start => true, :restart => true, :stop => true, :status => true
-  action [:enable, :start]
+  action [:enable]
+end
+
+target_package_filename = "#{node[:spydle][:lib_dir]}/#{File.basename(node[:spydle][:package_url])}"
+remote_file target_package_filename do
+  not_if { ::File.exists?(target_package_filename) }
+  source node[:spydle][:package_url]
+  checksum node[:spydle][:package_checksum]
+  owner node[:spydle][:user]
+  group node[:spydle][:group]
+  mode "0600"
+  notifies :restart, resources(:service => 'spydle'), :delayed
+end
+
+node[:spydle][:extra_libraries].each do |library|
+  target_library_filename = "#{node[:spydle][:lib_dir]}/#{File.basename(library)}"
+  remote_file target_library_filename do
+    not_if { ::File.exists?(target_library_filename) }
+    source library
+    owner node[:spydle][:user]
+    group node[:spydle][:group]
+    mode "0600"
+    notifies :restart, resources(:service => 'spydle'), :delayed
+  end
+end
+
+service "spydle" do
+  provider Chef::Provider::Service::Upstart
+  supports :start => true, :restart => true, :stop => true, :status => true
+  action [:start]
 end

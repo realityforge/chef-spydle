@@ -18,6 +18,9 @@ respawn limit 10 5
 <%
   classpath = []
   classpath << "#{node[:spydle][:lib_dir]}/#{File.basename(node[:spydle][:package_url])}"
+  node[:spydle][:extra_libraries].each do |library|
+    classpath << "#{node[:spydle][:lib_dir]}/#{File.basename(library)}"
+  end
 %>
 
 exec su <%= node[:spydle][:user] %> -c '<%= node["java"]["java_home"] %>/bin/java -cp "<%= classpath.join(":") %>" org.realityforge.spydle.Main --config-directory "<%= node[:spydle][:conf_dir] %>"'
