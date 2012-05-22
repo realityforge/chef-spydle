@@ -34,4 +34,4 @@ probe_names = node[:spydle][:probes].keys.collect { |p| "#{p}.json" }
       backup false
     end
   end
-end
+end if File.exist?(node[:spydle][:conf_dir])
