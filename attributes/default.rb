@@ -17,8 +17,8 @@
 default[:spydle][:user] = "spydle"
 default[:spydle][:group] = "spydle"
 
-default[:spydle][:package_url] = "http://repo.fire.dse.vic.gov.au/content/groups/fisg/org/realityforge/spydle/1.0/spydle-1.0-all.jar"
-default[:spydle][:package_checksum] = "bb04d6a16afd11c31a6aa79ad3cf6717ce729cba7125c02a84f88a17c43b516f"
+default[:spydle][:package_url] = "http://repo.fire.dse.vic.gov.au/content/groups/fisg/org/realityforge/spydle/1.1/spydle-1.1-all.jar"
+default[:spydle][:package_checksum] = "42c91a1396c2598d5131e6c9ddc426ac2823067a7783ab1d840eb16054e3c54e"
 
 default[:spydle][:lib_dir] = "/opt/spydle/lib"
 default[:spydle][:conf_dir] = "/opt/spydle/conf.d"
