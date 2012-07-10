@@ -53,23 +53,23 @@ end
 
 target_package_filename = "#{node[:spydle][:lib_dir]}/#{File.basename(node[:spydle][:package_url])}"
 remote_file target_package_filename do
-  not_if { ::File.exists?(target_package_filename) }
   source node[:spydle][:package_url]
   checksum node[:spydle][:package_checksum]
   owner node[:spydle][:user]
   group node[:spydle][:group]
   mode "0600"
+  action :create_if_missing
   notifies :restart, resources(:service => 'spydle'), :delayed
 end
 
 node[:spydle][:extra_libraries].each do |library|
   target_library_filename = "#{node[:spydle][:lib_dir]}/#{File.basename(library)}"
   remote_file target_library_filename do
-    not_if { ::File.exists?(target_library_filename) }
     source library
     owner node[:spydle][:user]
     group node[:spydle][:group]
     mode "0600"
+    action :create_if_missing
     notifies :restart, resources(:service => 'spydle'), :delayed
   end
 end
