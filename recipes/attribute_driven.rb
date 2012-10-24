@@ -14,9 +14,9 @@
 # limitations under the License.
 #
 
-include_recipe "spydle::default"
+include_recipe 'spydle::default'
 
-node[:spydle][:probes].each_pair do |key, config|
+node['spydle']['probes'].each_pair do |key, config|
   config = config.to_hash
   spydle_probe key do
     type config['type']
@@ -26,12 +26,12 @@ node[:spydle][:probes].each_pair do |key, config|
   end
 end
 
-probe_names = node[:spydle][:probes].keys.collect { |p| "#{p}.json" }
-::Dir.entries(node[:spydle][:conf_dir]).each do |entry|
+probe_names = node['spydle']['probes'].keys.collect { |p| "#{p}.json" }
+::Dir.entries(node['spydle']['conf_dir']).each do |entry|
   if ::File.file?(entry) && entry =~ /.*\.json$/ && !probe_names.include?(File.basename(entry))
     file entry do
       action :delete
       backup false
     end
   end
-end if File.exist?(node[:spydle][:conf_dir])
+end if File.exist?(node['spydle']['conf_dir'])

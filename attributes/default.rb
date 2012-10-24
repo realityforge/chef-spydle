@@ -14,14 +14,14 @@
 # limitations under the License.
 #
 
-default[:spydle][:user] = "spydle"
-default[:spydle][:group] = "spydle"
+default['spydle']['user'] = 'spydle'
+default['spydle']['group'] = 'spydle'
 
-default[:spydle][:package_url] = "http://repo.fire.dse.vic.gov.au/content/groups/fisg/org/realityforge/spydle/1.1.1/spydle-1.1.1-all.jar"
-default[:spydle][:package_checksum] = "b12185974544e2d41cbf4622801edeb39ec5913e25260be55770134d7f09a5a2"
-default[:spydle][:extra_libraries] = []
+default['spydle']['package_url'] = 'http://repo.fire.dse.vic.gov.au/content/groups/fisg/org/realityforge/spydle/1.1.1/spydle-1.1.1-all.jar'
+default['spydle']['package_checksum'] = 'b12185974544e2d41cbf4622801edeb39ec5913e25260be55770134d7f09a5a2'
+default['spydle']['extra_libraries'] = []
 
-default[:spydle][:lib_dir] = "/opt/spydle/lib"
-default[:spydle][:conf_dir] = "/opt/spydle/conf.d"
-default[:spydle][:probes] = Mash.new
+default['spydle']['lib_dir'] = '/opt/spydle/lib'
+default['spydle']['conf_dir'] = '/opt/spydle/conf.d'
+default['spydle']['probes'] = Mash.new
 

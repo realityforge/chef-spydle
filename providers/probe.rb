@@ -18,20 +18,20 @@ require 'json'
 
 action :create do
   config = {:type => new_resource.type}
-  config[:stage] = new_resource.stage if new_resource.stage
-  config[:period] = new_resource.period if new_resource.period
-  config[:config] = new_resource.config if new_resource.config
-  file "#{node[:spydle][:conf_dir]}/#{new_resource.name}.json" do
-    mode "0400"
-    owner node[:spydle][:user]
-    group node[:spydle][:group]
+  config['stage'] = new_resource.stage if new_resource.stage
+  config['period'] = new_resource.period if new_resource.period
+  config['config'] = new_resource.config if new_resource.config
+  file "#{node['spydle']['conf_dir']}/#{new_resource.name}.json" do
+    mode '0400'
+    owner node['spydle']['user']
+    group node['spydle']['group']
     content JSON.pretty_generate(config)
-    notifies :restart, resources(:service => "spydle"), :delayed
+    notifies :restart, resources(:service => 'spydle'), :delayed
   end
 end
 
 action :destroy do
-  file "#{node[:spydle][:conf_dir]}/#{new_resource.name}.json" do
+  file "#{node['spydle']['conf_dir']}/#{new_resource.name}.json" do
     action :delete
     backup false
   end

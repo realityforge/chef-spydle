@@ -14,67 +14,67 @@
 # limitations under the License.
 #
 
-include_recipe "java"
+include_recipe 'java'
 
-group node[:spydle][:group] do
+group node['spydle']['group'] do
 end
 
-user node[:spydle][:user] do
-  comment "Spydle Server Monitor"
-  gid node[:spydle][:group]
-  home node[:spydle][:base_dir]
-  shell "/bin/bash"
+user node['spydle']['user'] do
+  comment 'Spydle Server Monitor'
+  gid node['spydle']['group']
+  home node['spydle']['base_dir']
+  shell '/bin/bash'
 end
 
-directory node[:spydle][:lib_dir] do
-  owner node[:spydle][:user]
-  group node[:spydle][:group]
-  mode "0500"
+directory node['spydle']['lib_dir'] do
+  owner node['spydle']['user']
+  group node['spydle']['group']
+  mode '0500'
   recursive true
 end
 
-directory node[:spydle][:conf_dir] do
-  owner node[:spydle][:user]
-  group node[:spydle][:group]
-  mode "0500"
+directory node['spydle']['conf_dir'] do
+  owner node['spydle']['user']
+  group node['spydle']['group']
+  mode '0500'
   recursive true
 end
 
-template "/etc/init/spydle.conf" do
-  source "upstart.conf.erb"
-  mode "0644"
+template '/etc/init/spydle.conf' do
+  source 'upstart.conf.erb'
+  mode '0600'
 end
 
-service "spydle" do
+service 'spydle' do
   provider Chef::Provider::Service::Upstart
   supports :start => true, :restart => true, :stop => true, :status => true
-  action [:enable]
+  action ['enable']
 end
 
-target_package_filename = "#{node[:spydle][:lib_dir]}/#{File.basename(node[:spydle][:package_url])}"
+target_package_filename = "#{node['spydle']['lib_dir']}/#{File.basename(node['spydle']['package_url'])}"
 remote_file target_package_filename do
-  source node[:spydle][:package_url]
-  checksum node[:spydle][:package_checksum]
-  owner node[:spydle][:user]
-  group node[:spydle][:group]
-  mode "0600"
+  source node['spydle']['package_url']
+  checksum node['spydle']['package_checksum']
+  owner node['spydle']['user']
+  group node['spydle']['group']
+  mode '0600'
   action :create_if_missing
   notifies :restart, resources(:service => 'spydle'), :delayed
 end
 
-node[:spydle][:extra_libraries].each do |library|
-  target_library_filename = "#{node[:spydle][:lib_dir]}/#{File.basename(library)}"
+node['spydle']['extra_libraries'].each do |library|
+  target_library_filename = "#{node['spydle']['lib_dir']}/#{File.basename(library)}"
   remote_file target_library_filename do
     source library
-    owner node[:spydle][:user]
-    group node[:spydle][:group]
-    mode "0600"
+    owner node['spydle']['user']
+    group node['spydle']['group']
+    mode '0600'
     action :create_if_missing
     notifies :restart, resources(:service => 'spydle'), :delayed
   end
 end
 
-service "spydle" do
+service 'spydle' do
   provider Chef::Provider::Service::Upstart
   supports :start => true, :restart => true, :stop => true, :status => true
   action [:start]
