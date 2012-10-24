@@ -22,7 +22,4 @@ attribute :stage, :kind_of => String, :default => nil
 attribute :period, :kind_of => Integer, :default => nil
 attribute :config, :kind_of => Hash, :default => {}
 
-def initialize( *args )
-  super
-  @action = :create
-end
+default_action :create
