@@ -24,6 +24,7 @@ user node['spydle']['user'] do
   gid node['spydle']['group']
   home node['spydle']['base_dir']
   shell '/bin/bash'
+  system true
 end
 
 directory node['spydle']['lib_dir'] do
