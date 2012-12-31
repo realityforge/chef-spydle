@@ -16,7 +16,7 @@
 
 require 'json'
 
-action :create do
+notifying_action :create do
   config = {:type => new_resource.type}
   config['stage'] = new_resource.stage if new_resource.stage
   config['period'] = new_resource.period if new_resource.period
@@ -30,7 +30,7 @@ action :create do
   end
 end
 
-action :destroy do
+notifying_action :destroy do
   file "#{node['spydle']['conf_dir']}/#{new_resource.name}.json" do
     action :delete
     backup false

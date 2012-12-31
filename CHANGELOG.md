@@ -1,5 +1,6 @@
 ## v0.0.4:
 
+* Use the cutlery cookbook to ensure wrap actions so that the provider correctly sets updated resources flag.
 * Prefer new notification syntax.
 * Convert spydle user to a system user.
 
