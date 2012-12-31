@@ -1,5 +1,6 @@
 ## v0.0.4:
 
+* Prefer new notification syntax.
 * Convert spydle user to a system user.
 
 ## v0.0.2:

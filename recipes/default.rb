@@ -60,7 +60,7 @@ remote_file target_package_filename do
   group node['spydle']['group']
   mode '0600'
   action :create_if_missing
-  notifies :restart, resources(:service => 'spydle'), :delayed
+  notifies :restart, 'service[spydle]', :delayed
 end
 
 node['spydle']['extra_libraries'].each do |library|
@@ -71,7 +71,7 @@ node['spydle']['extra_libraries'].each do |library|
     group node['spydle']['group']
     mode '0600'
     action :create_if_missing
-    notifies :restart, resources(:service => 'spydle'), :delayed
+    notifies :restart, 'service[spydle]', :delayed
   end
 end
 

@@ -26,7 +26,7 @@ action :create do
     owner node['spydle']['user']
     group node['spydle']['group']
     content JSON.pretty_generate(config)
-    notifies :restart, resources(:service => 'spydle'), :delayed
+    notifies :restart, 'service[spydle]', :delayed
   end
 end
 
