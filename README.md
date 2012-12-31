@@ -1,6 +1,8 @@
 Description
 ===========
 
+[![Build Status](https://secure.travis-ci.org/realityforge/chef-spydle.png?branch=master)](http://travis-ci.org/realityforge/chef-spydle)
+
 A cookbook that installs [spydle](https://github.com/realityforge/spydle) to help monitor services and push data into the metric server.
 
 Requirements
