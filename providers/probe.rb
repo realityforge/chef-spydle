@@ -21,6 +21,13 @@ notifying_action :create do
   config['stage'] = new_resource.stage if new_resource.stage
   config['period'] = new_resource.period if new_resource.period
   config['config'] = new_resource.config if new_resource.config
+
+  service 'spydle' do
+    provider Chef::Provider::Service::Upstart
+    supports :start => true, :restart => true, :stop => true, :status => true
+    action :nothing
+  end
+
   file "#{node['spydle']['conf_dir']}/#{new_resource.name}.json" do
     mode '0400'
     owner node['spydle']['user']
@@ -31,8 +38,15 @@ notifying_action :create do
 end
 
 notifying_action :destroy do
+  service 'spydle' do
+    provider Chef::Provider::Service::Upstart
+    supports :start => true, :restart => true, :stop => true, :status => true
+    action :nothing
+  end
+
   file "#{node['spydle']['conf_dir']}/#{new_resource.name}.json" do
     action :delete
     backup false
+    notifies :restart, 'service[spydle]', :delayed
   end
 end
