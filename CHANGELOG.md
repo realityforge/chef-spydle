@@ -1,3 +1,7 @@
+## v0.0.6:
+
+* Change  : Replace the use of cutlery dependency with Chef 11's use_inline_resources method.
+
 ## v0.0.4:
 
 * Use the cutlery cookbook to ensure wrap actions so that the provider correctly sets updated resources flag.

@@ -16,7 +16,9 @@
 
 require 'json'
 
-notifying_action :create do
+use_inline_resources
+
+action :create do
   config = {:type => new_resource.type}
   config['stage'] = new_resource.stage if new_resource.stage
   config['period'] = new_resource.period if new_resource.period
@@ -37,7 +39,7 @@ notifying_action :create do
   end
 end
 
-notifying_action :destroy do
+action :destroy do
   service 'spydle' do
     provider Chef::Provider::Service::Upstart
     supports :start => true, :restart => true, :stop => true, :status => true
