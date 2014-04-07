@@ -24,4 +24,3 @@ default['spydle']['extra_libraries'] = []
 default['spydle']['lib_dir'] = '/opt/spydle/lib'
 default['spydle']['conf_dir'] = '/opt/spydle/conf.d'
 default['spydle']['probes'] = Mash.new
-
